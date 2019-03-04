@@ -5,11 +5,14 @@ from django.db import models
 
 
 class BlogPost(models.Model):
+    current_instance = False
     title = models.CharField(max_length=100, unique=True)
-    author = models.CharField(max_length=100, unique=True)
+    author = models.CharField(max_length=100, unique=False)
     slug = models.SlugField(max_length=100, unique=True)
-    body = models.TextField()
+    markdown = models.TextField()
+    html = models.TextField()
     add_time = models.DateTimeField(db_index=True, auto_now_add=True)
+    update_time = models.DateTimeField(db_index=True, auto_now=True)
 
     def __str__(self):
         return 'title: {}'.format(self.title)

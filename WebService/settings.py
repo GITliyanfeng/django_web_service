@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web.apps.WebConfig',
     'markdown',
+    'xadmin.apps.XAdminConfig',
+    'crispy_forms',
+    'reversion',
+    'import_export',
 ]
 
 MIDDLEWARE = [

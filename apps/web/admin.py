@@ -10,8 +10,9 @@ class BlogPostAdimin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': AdminMarkdownWidget()},
     }
-    exclude = ['add_time']
+    exclude = ['add_time', 'html']
     prepopulated_fields = {'slug': ('title', 'author')}
+    list_display = ('title', 'author', 'slug', 'add_time', 'update_time')
 
 
 admin.site.register(BlogPost, BlogPostAdimin)

@@ -18,11 +18,14 @@ from django.contrib import admin
 from django.views.static import serve
 from WebService.settings import MEDIA_ROOT
 from web import views as web_wiews
+import xadmin
+
 
 urlpatterns = [
     url(r'^$', web_wiews.index),
     url(r'^blog/(?P<slug>[^\.]+).html$', web_wiews.view_post, name='view_blog_post'),
     url(r'^admin/', admin.site.urls),
     url(r'^markdown/', include('markdown.urls')),
+    url(r'^xadmin/', include(xadmin.site.urls)),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 ]
