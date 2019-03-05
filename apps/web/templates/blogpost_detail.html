@@ -22,13 +22,15 @@
     this entry has{{ comment_count }} comments <br>
     {% get_comment_list for post as comments_list %}
     {% for comment in comments_list %}
-        <a name="c{{ comment.id }}"></a>
+        <a name="c{{ comment.id }}"></a><a href="{% get_comment_permalink comment %}">#{{ forloop.counter }}
+    </a>
+        <br>
         <p>{{ comment }}</p>
-        <a href="{% get_comment_permalink comment %}">
-            permalink for comment #{{ forloop.counter }}
-        </a>
+        <small><b>By</b>:{{ comment.name }}  <b>email</b>:{{ comment.email }} <b>date</b>:{{ comment.submit_date }}</small>
+        <hr>
     {% endfor %}
     {% get_comment_form for post as comment_form %}
+    <hr>
     <table>
         <form action="{% comment_form_target %}" method="post">
             <input type="hidden" name="next" value="{{ post.get_absolute_url }}"/>
@@ -36,9 +38,18 @@
             {{ comment_form }}
             <tr>
                 <td colspan="2">
-                    <input type="submit" name="submit" value="提交">
+                    <input type="submit" class="btn btn-primary" name="submit" value="提交">
                 </td>
             </tr>
         </form>
     </table>
+    <style>
+        #id_honeypot {
+            display: none;
+        }
+
+        label[for="id_honeypot"] {
+            display: none;
+        }
+    </style>
 {% endblock %}
