@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'django_comments',
     'django.contrib.sitemaps',
+    'rest_framework',
     'web.apps.WebConfig',
 ]
 

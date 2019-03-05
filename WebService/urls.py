@@ -20,6 +20,12 @@ from web import views as web_views
 from django.contrib.sitemaps.views import sitemap
 from sitemap.sitemaps import PageSitemap, FlatPageSitemap, BlogSitemap
 
+from rest_framework import routers
+from web.viewsets import BlogpostViewSet
+
+apiRouter = routers.DefaultRouter()
+apiRouter.register(r'blogpost', BlogpostViewSet)
+
 sitemaps = {
     'Page': PageSitemap,
     'Flatpages': FlatPageSitemap,
@@ -33,4 +39,6 @@ urlpatterns = [
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^comments/', include('django_comments.urls')),
     url(r'^sitemap.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^api/', include(apiRouter.urls)),
+    url(r'^api-auth', include('rest_framework.urls', namespace='res_framework')),
 ]
