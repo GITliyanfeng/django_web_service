@@ -13,9 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
+
 from django.contrib import admin
+from web import views as web_views
+from django.contrib.sitemaps.views import sitemap
+from sitemap.sitemaps import PageSitemap, FlatPageSitemap, BlogSitemap
+
+sitemaps = {
+    'Page': PageSitemap,
+    'Flatpages': FlatPageSitemap,
+    'Blog': BlogSitemap
+}
 
 urlpatterns = [
+    url(r'^$', web_views.index, name='main'),
     url(r'^admin/', admin.site.urls),
+    url(r'^blog/(?P<slug>[^.]+).html', web_views.view_post, name='view_blog_post'),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
+    url(r'^comments/', include('django_comments.urls')),
+    url(r'^sitemap.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]

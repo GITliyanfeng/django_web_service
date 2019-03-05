@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to my blog{% endblock %}
+
+{% block content %}
+<h2>博客</h2>
+<div class="row">
+    {% if posts %}
+        {% for post in posts %}
+            <div class="col-sm-4">
+                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                {{ post.markdown | slice:":80" }}
+                <p>{{ post.add_time }} - By {{ post.author }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>There is no posts</p>
+    {% endif %}
+</div>
+{% endblock %}

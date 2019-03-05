@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load comments %}
+
+{% block head_title %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">{{ post.title }}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            {{ post.markdown }}
+        </div>
+        <div class="mdl-card__actions">
+            {{ post.add_time }} - By {{ post.author }}
+        </div>
+    </div>
+    <h4>评论:</h4>
+
+    {% render_comment_list for post %}
+
+{% endblock %}
