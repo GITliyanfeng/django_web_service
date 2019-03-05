@@ -16,8 +16,29 @@
             {{ post.add_time }} - By {{ post.author }}
         </div>
     </div>
-    <h4>评论:</h4>
-
-    {% render_comment_list for post %}
-
+    <h4>comments:</h4>
+    {#    {% render_comment_list for post %}#}
+    {% get_comment_count for post as comment_count %}
+    this entry has{{ comment_count }} comments <br>
+    {% get_comment_list for post as comments_list %}
+    {% for comment in comments_list %}
+        <a name="c{{ comment.id }}"></a>
+        <p>{{ comment }}</p>
+        <a href="{% get_comment_permalink comment %}">
+            permalink for comment #{{ forloop.counter }}
+        </a>
+    {% endfor %}
+    {% get_comment_form for post as comment_form %}
+    <table>
+        <form action="{% comment_form_target %}" method="post">
+            <input type="hidden" name="next" value="{{ post.get_absolute_url }}"/>
+            {% csrf_token %}
+            {{ comment_form }}
+            <tr>
+                <td colspan="2">
+                    <input type="submit" name="submit" value="提交">
+                </td>
+            </tr>
+        </form>
+    </table>
 {% endblock %}
