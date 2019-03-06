@@ -24,7 +24,7 @@ from rest_framework import routers
 from web.viewsets import BlogpostViewSet
 
 apiRouter = routers.DefaultRouter()
-apiRouter.register(r'blogpost', BlogpostViewSet)
+apiRouter.register(r'blogpost', BlogpostViewSet, basename='Blogpost')
 
 sitemaps = {
     'Page': PageSitemap,
